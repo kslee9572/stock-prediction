@@ -9,7 +9,9 @@ import numpy as np
 
 """ 
 
-    Part that interacts with user. Asks for ticker that user wants analysis.
+    Part that interacts with user.
+    Asks user for name of ticke to be analyzed.
+    Initializes main variables for analysis.
 
 """
 
@@ -17,6 +19,7 @@ import numpy as np
 def main():
     tickers = pd.read_csv("./Nasdaq_Screeners.csv")["Symbol"].tolist()
 
+    ## asks user for the ticker to be analyzed
     while True:
         print("Type symbol of stock to be analyzed: ")
         user_input = input()
@@ -31,9 +34,7 @@ def main():
 
         print("Invalid tickerv: try different ticker")
 
-    # pprint(data.head)
-
-    # need to take in user inputs for model
+    ## asks user to specify two main variables for analyzing
     print("Specify forecast days and learning days")
     print("Forecast days between 1 and 50, learning days between 1 and 100")
     while True:
@@ -56,20 +57,16 @@ def main():
             break
         print("Invalid learning days")
 
-    dataset = dt.to_techin(data, forecast_days, tech_days)
-    # print(dataset)
+    x_data = dt.to_techin(data, forecast_days, tech_days)
+    y_data = dt.to_updown(data, forecast_days, tech_days, len(x_data))
 
 
+##
 ## shows process of fetching data
-
-
+##
 def process_bar():
 
     pass
-
-
-## takes in data from alpha vantage
-## cleans up so it can run on the model
 
 
 main()
