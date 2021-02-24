@@ -6,6 +6,7 @@ import pandas as pd
 import time
 import data as dt
 import numpy as np
+import preprocessing as pp
 
 """ 
 
@@ -59,6 +60,22 @@ def main():
 
     x_data = dt.to_techin(data, forecast_days, tech_days)
     y_data = dt.to_updown(data, forecast_days, tech_days, len(x_data))
+
+    ##variables
+    #### Need to makes these readable as well
+    train_forward = 10
+    n_training = 2000
+    n_testing = 1000
+    timesteps = 10
+
+    toolbox = pp.pptoolbox(x_data, train_forward, n_training, n_testing, timesteps)
+
+    x_train = toolbox.x_train()
+    x_test = toolbox.x_test()
+    y_train = toolbox.y_train(y_data)
+    y_test = toolbox.y_test(y_data)
+
+    ##data now ready to enter model
 
 
 ##
