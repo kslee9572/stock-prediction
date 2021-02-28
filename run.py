@@ -1,5 +1,5 @@
 # API key: OS6T161LRRJ4V9N2
-# source /Users/kslee9572/.pyenv/versions/stock_project/bin/activate
+# pyenv activate stock_project
 from alpha_vantage.timeseries import TimeSeries
 from pprint import pprint
 import pandas as pd
@@ -76,6 +76,11 @@ def main():
     y_test = toolbox.y_test(y_data)
 
     ##data now ready to enter model
+
+    # construct for loop to loop for entire matrix
+    # give that data to plot.py
+    # give user statistical report
+    ##finsih!!!!
 
 
 ##
