@@ -7,12 +7,14 @@ import technical_indicators as tech
     Part that does all the data preprocessing.
 
 """
+
+tech_days = 14
 ##
 ## basic cleaning of data from api for better use.
 ## shapes raw data from alpha vantage to columns
 ## of numbers needed for converting to data feedible to neural networks
 ##
-def alpha_clean(alpha_data, forecast_days, tech_days):
+def alpha_clean(alpha_data, forecast_days):
 
     ## dataset: raw data
     ## data : dataset converted to numpy
@@ -32,7 +34,7 @@ def alpha_clean(alpha_data, forecast_days, tech_days):
 ## returns raw x_data
 ## after cleanining data, converts them to technical indicators
 ##
-def to_techin(alpha_data, forecast_days, tech_days):
+def to_techin(alpha_data, forecast_days):
 
     ## tech_data: data converted to technical indicators
 
@@ -71,7 +73,7 @@ def to_techin(alpha_data, forecast_days, tech_days):
 ##
 ## length must match the length of x_data!
 ##
-def to_updown(alpha_data, forecast_days, tech_days, length):
+def to_updown(alpha_data, forecast_days, length):
 
     data = alpha_clean(alpha_data, forecast_days, tech_days)
 
@@ -87,10 +89,3 @@ def to_updown(alpha_data, forecast_days, tech_days, length):
             updown[i] = 0
 
     return updown
-
-
-class pptoolbox:
-
-    """ toolbox for preprocessing data for training/testing """
-
-    pass

@@ -1,14 +1,21 @@
 from keras.models import Sequential
 from keras.layers import Dense, LSTM, Dropout
 from keras import optimizers
+import numpy as np
 
+
+""" 
+
+    Part that runs model.
+
+"""
 
 n_epochs = 10
 n_batchsize = 50
 learning_rate = 0.001
 
 
-def run_model(timesteps, x_train, y_train):
+def run_model(timesteps, x_train, y_train, x_test, y_test):
 
     n_features = x_train.shape[2]
 
@@ -30,4 +37,31 @@ def run_model(timesteps, x_train, y_train):
     history = model.fit(x_train, y_train, epochs=n_epochs, batch_size=n_batchsize)
     predicted_change = model.predict(x_test)
 
+    binary_data = data_to_binary(predicted_change)
+
+    return accuracy(binary_data, y_test)
+
+
+def data_to_binary(predicted_change):
+
+    predicted_change = np.reshape(predicted_change, len(predicted_change))
+
+    for i in range(len(predicted_change)):
+        if predicted_change[i] > 0.5:
+            predicted_change[i] = 1
+        else:
+            predicted_change[i] = 0
+
     return predicted_change
+
+
+def accuracy(predicted_change, y_test):
+
+    counter = 0
+
+    for i in range(len(predicted_change)):
+        if predicted_change[i] == y_test[i]:
+            counter += 1
+    counter / len(predicted_change)
+
+    return counter

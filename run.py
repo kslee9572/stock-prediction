@@ -7,6 +7,8 @@ import time
 import data as dt
 import numpy as np
 import preprocessing as pp
+import model as md
+import statistics as st
 
 """ 
 
@@ -35,50 +37,44 @@ def main():
 
         print("Invalid tickerv: try different ticker")
 
-    ## asks user to specify two main variables for analyzing
-    print("Specify forecast days and learning days")
-    print("Forecast days between 1 and 50, learning days between 1 and 100")
-    while True:
-
-        print("Forecast Days :")
-        forecast_days = int(input())
-
-        if forecast_days > 0 and forecast_days < 50:
-            forecast_days = round(forecast_days)
-            break
-        print("Invalid forecast days")
-
-    while True:
-
-        print("Learning Days :")
-        tech_days = int(input())
-
-        if tech_days > 0 and tech_days < 50:
-            tech_days = round(tech_days)
-            break
-        print("Invalid learning days")
-
-    x_data = dt.to_techin(data, forecast_days, tech_days)
-    y_data = dt.to_updown(data, forecast_days, tech_days, len(x_data))
-
-    ##variables
+    ## Variables
     #### Need to makes these readable as well
-    train_forward = 10
+    train_forward = 0
     n_training = 2000
-    n_testing = 1000
-    timesteps = 10
+    timesteps = 0
+    repeat = 4
 
-    toolbox = pp.pptoolbox(x_data, train_forward, n_training, n_testing, timesteps)
+    all_data = np.zeros((10, 10, repeat))
+    final_data = np.zeros((10, 10))
 
-    x_train = toolbox.x_train()
-    x_test = toolbox.x_test()
-    y_train = toolbox.y_train(y_data)
-    y_test = toolbox.y_test(y_data)
+    for k in range(10):
+        for j in range(10):
 
-    ##data now ready to enter model
+            timesteps = 10 * (j + 1)
+            forecast_days = 10 * (k + 1)
+            n_testing = timesteps + 70
+            temp = np.zeros(repeat)
 
-    # construct for loop to loop for entire matrix
-    # give that data to plot.py
+            for i in range(repeat):
+                train_forward = 500 * i + 500
+
+                x_data = dt.to_techin(data, forecast_days)
+                y_data = dt.to_updown(data, forecast_days, len(x_data))
+
+                toolbox = pp.pptoolbox(
+                    x_data, train_forward, n_training, n_testing, timesteps
+                )
+
+                x_train = toolbox.x_train()
+                x_test = toolbox.x_test()
+                y_train = toolbox.y_train(y_data)
+                y_test = toolbox.y_test(y_data)
+
+                temp[i] = md.run_model(timesteps, x_train, y_train, x_test, y_test)
+                all_data[k, j, i] = temp[i]
+                final_data[k, j] = st.median(temp)
+
+    # give final_data to plot.py
     # give user statistical report
     ##finsih!!!!
 

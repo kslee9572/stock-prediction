@@ -4,7 +4,11 @@ import numpy as np
 
 class pptoolbox:
 
-    """ toolbox for preprocessing data for training/testing """
+    """
+
+    toolbox for preprocessing data for training/testing
+
+    """
 
     def __init__(self, x_data, train_forward, n_training, n_testing, timesteps):
         self.train_forward = train_forward
@@ -61,7 +65,7 @@ class pptoolbox:
             + self.timesteps
             - 1 : self.train_forward
             + self.n_testing
-            + self.n_training
+            + self.n_trainingx
             - 1
         ]
 
