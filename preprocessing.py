@@ -65,7 +65,7 @@ class pptoolbox:
             + self.timesteps
             - 1 : self.train_forward
             + self.n_testing
-            + self.n_trainingx
+            + self.n_training
             - 1
         ]
 
