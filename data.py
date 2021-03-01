@@ -38,7 +38,7 @@ def to_techin(alpha_data, forecast_days):
 
     ## tech_data: data converted to technical indicators
 
-    data = alpha_clean(alpha_data, forecast_days, tech_days)
+    data = alpha_clean(alpha_data, forecast_days)
 
     difference = np.zeros(len(data["4. close"]) - 1)
     for i in range(len(data["4. close"]) - 1):
@@ -75,7 +75,7 @@ def to_techin(alpha_data, forecast_days):
 ##
 def to_updown(alpha_data, forecast_days, length):
 
-    data = alpha_clean(alpha_data, forecast_days, tech_days)
+    data = alpha_clean(alpha_data, forecast_days)
 
     updown = np.zeros(length)
     for i in range(len(updown)):
@@ -89,3 +89,28 @@ def to_updown(alpha_data, forecast_days, length):
             updown[i] = 0
 
     return updown
+
+
+def report(final_data, company_name):
+    max = 0
+    forecast_days = 0
+    timsteps = 0
+
+    for i in range(final_data.shape[0]):
+        for j in range(final_data.shape[1]):
+            if final_data[i][j] > max:
+                max = final_data[i][j]
+                forecast_days = i
+                timesteps = j
+
+    forecast_days = forecast_days * 10 + 10
+    timesteps = timesteps * 10 + 10
+
+    print(
+        "The model is most accurate when",
+        forecast_days,
+        "days ahead is predicted with",
+        timesteps,
+        "days of history for",
+        company_name.upper(),
+    )
