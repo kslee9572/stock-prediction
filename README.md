@@ -31,16 +31,16 @@ price movement.
 
 <img src="readme/parameters.png" width="566"/>
 
-'timesteps' : the number of data points fed into the network
-'forecast_days' : the number of days forward the program aims to predict
+`timesteps` : the number of data points fed into the network
+`forecast_days` : the number of days forward the program aims to predict
 
 
 # Usage
 Once running the program, it will first prompt
 
-'Type symbol of stock to be analyzed:'
+`Type symbol of stock to be analyzed:`
 
-The 'run.py' is executed, it will return a contour plot 
+The `run.py` is executed, it will return a contour plot 
 
 
 # Results
