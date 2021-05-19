@@ -39,7 +39,8 @@ def main():
         print("Invalid tickerv: try different ticker")
 
     ## Variables
-    #### Need to makes these readable as well
+    #### Need to edit this part
+
     train_forward = 0
     n_training = 2000
     timesteps = 0
@@ -48,8 +49,8 @@ def main():
     all_data = np.zeros((10, 10, repeat))
     final_data = np.zeros((10, 10))
 
-    for k in range(1):
-        for j in range(1):
+    for k in range(1):  ##change to x axis
+        for j in range(1):  ## change to y axis
 
             timesteps = 10 * (j + 1)
             forecast_days = 10 * (k + 1)
